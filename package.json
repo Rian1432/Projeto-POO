@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "dev": "npx tsc --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint ./src --fix"
+  },
+  "devDependencies": {
+    "@types/prompt-sync": "^4.2.3",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
