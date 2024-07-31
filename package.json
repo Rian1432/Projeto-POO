@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "dev": "npx tsc --watch",
+    "start": "node tsc ./dist/index.js",
+    "build-watch": "npx tsc --watch",
+    "build": "npx tsc",
     "lint": "eslint .",
     "lint:fix": "eslint ./src --fix"
   },
