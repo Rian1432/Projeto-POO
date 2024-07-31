@@ -16,12 +16,11 @@ export default class PrimaryScreen{
        
 		let showScreen: boolean = false;
 		while (!showScreen) {
-			const choice = this.prompt('Escolha:\n1 - Cadastro Comida\n2 - Listar\n3 - Sair');
+			const choice = this.prompt('Escolha:\n1 - Computadores\n2 - Vendedores\n3 - Sair');
               
 			switch (choice) {
 			case '1':
-				const Desktop: Desktop = this.DesktopController.getNewDesktop();
-				this.registerFood(Desktop);
+				this.registerDesktop(this.DesktopController.getNewDesktop());
 				break;
         
 			case '2':
@@ -39,10 +38,10 @@ export default class PrimaryScreen{
 
 	}
 
-	public registerFood(Desktop: Desktop): void{
-		const name = this.prompt('Digite o nome do produto alimentício');
+	public registerDesktop(Desktop: Desktop): void{
+		const name = this.prompt('Digite o nome do modelo');
 		Desktop.setModelName(name);
-		this.DesktopController.registerNewFood(Desktop);
-		this.DesktopController.listAllFoods();
+		this.DesktopController.registerDesktop(Desktop);
+		console.log(this.DesktopController.getDesktops());
 	}
 }
