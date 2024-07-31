@@ -4,7 +4,7 @@ export default class Computer {
 	private price:number;
 	private useType:useTypes;
 
-	constructor(){ 
+	constructor(){
 	}
 
 	public getId():number {
@@ -40,8 +40,8 @@ export default class Computer {
 	}
 }
 
-interface useTypes {
-  'Basic',
-  'Performance',
-  'Gamer'
+enum useTypes {
+  'Basic'= 'basic',
+  'Performance' = 'performance',
+  'Gamer' = 'gamer',
 }
