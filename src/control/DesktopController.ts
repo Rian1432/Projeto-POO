@@ -1,20 +1,19 @@
 import Datacenter from '../db/Datacenter';
 import Desktop from '../model/Desktop';
 
-export default class FoodController{
+export default class DesktopController{
 
-	private datacenter: Datacenter = new Datacenter(); 
+	private db: Datacenter = new Datacenter(); 
 
 	public getNewDesktop(): Desktop{
 		return new Desktop();
 	}
 
-	public registerNewFood(computer: Desktop){
-		this.datacenter.addNewDesktop(computer);
+	public registerDesktop(computer: Desktop){
+		this.db.addDesktop(computer);
 	}
 
-	public listAllFoods(): void{
-		console.log(this.datacenter.desktopList);
+	public getDesktops(): Desktop[]{
+		return this.db.getDesktops();
 	}
-
 }
