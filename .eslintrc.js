@@ -28,6 +28,7 @@ module.exports = {
 	'plugins': [
 		'@typescript-eslint'
 	],
+	'ignorePatterns': ['dist', 'node_modules'],
 	'rules': {
 		'indent': [
 			'error',
