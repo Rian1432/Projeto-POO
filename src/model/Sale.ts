@@ -1,29 +1,33 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export default class Sale {
-	private id:number;
+	private readonly id:string;
 	private saleOrderId:number;
 	private createdAt:Date;
 
-	public constructor() {
+	public constructor(saleOrderId:number) {
+		this.id = uuidv4();
+		this.saleOrderId = saleOrderId;
 		this.createdAt = new Date();
 	}
 
-	public getId():number {
+	public getId():string {
 		return this.id;
-	}
-
-	public setId(id:number):number {
-		return this.id = id;
 	}
 
 	public getSaleOrderId():number {
 		return this.saleOrderId;
 	}
 
-	public setSaleOrderId(saleOrderId:number):number {
-		return this.saleOrderId = saleOrderId;
+	public setSaleOrderId(saleOrderId:number):void {
+		this.saleOrderId = saleOrderId;
 	}
 
-	public setCreatedAt():Date {
+	public getCreatedAt():Date {
 		return this.createdAt;
+	}
+
+	public setCreatedAt(newDate:Date):void {
+		this.createdAt = newDate;
 	}
 }

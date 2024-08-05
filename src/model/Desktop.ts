@@ -1,11 +1,12 @@
 import Computer from './Computer';
+import { useTypesEnum } from '../enums/UseTypes';
 
 export default class Desktop extends Computer{
 	private withMonitor:boolean;
 	private withPeripherals:boolean;
 
-	constructor() {
-		super();
+	constructor(modelName:string = '', price:number = 0, useType:useTypesEnum = useTypesEnum.Basic) {
+		super(modelName, price, useType);
 		this.withMonitor = false;
 		this.withPeripherals = false;
 	}

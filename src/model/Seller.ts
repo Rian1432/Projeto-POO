@@ -1,14 +1,18 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export default class Seller {
-	private id:number;
+	private readonly id:string;
 	private name:string;
 	private role:string;
 
-	private getId():number {
-		return this.id;
+	constructor(name:string, role:string) {
+		this.id = uuidv4();
+		this.name = name;
+		this.role = role;
 	}
 
-	private setId(id:number):void {
-		this.id = id;
+	private getId():string {
+		return this.id;
 	}
 
 	private getName():string {
