@@ -1,18 +1,21 @@
-export default class Computer {
-	private id:number;
+import { v4 as uuidv4 } from 'uuid';
+import { useTypesEnum } from '../enums/UseTypes';
+
+export default abstract class Computer {
+	private readonly id:string;
 	private modelName:string;
 	private price:number;
-	private useType:useTypes;
+	private useType:useTypesEnum;
 
-	constructor(){
+	protected constructor(modelName:string, price:number, useType:useTypesEnum) {
+		this.id = uuidv4();
+		this.modelName = modelName;
+		this.price = price;
+		this.useType = useType;
 	}
 
-	public getId():number {
+	public getId():string {
 		return this.id;
-	}
-
-	public setId(id:number):void {
-		this.id = id;
 	}
 
 	public getModelName():string {
@@ -31,17 +34,11 @@ export default class Computer {
 		this.price = price;
 	}
 
-	public getUseType():useTypes {
+	public getUseType():useTypesEnum {
 		return this.useType;
 	}
    
-	public setUseType(useType:useTypes):void {
+	public setUseType(useType: useTypesEnum):void {
 		this.useType = useType;
 	}
-}
-
-enum useTypes {
-  'Basic'= 'basic',
-  'Performance' = 'performance',
-  'Gamer' = 'gamer',
 }
