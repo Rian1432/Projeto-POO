@@ -1,9 +1,8 @@
 import PrimaryScreen from '../view/PrimaryScreen';
-import DesktopController from './DesktopController'; 
 
 export default class BasicController{
 
-	private primaryScreen: PrimaryScreen = new PrimaryScreen(new DesktopController());
+	private primaryScreen: PrimaryScreen = new PrimaryScreen();
     
 	public startSystem():void {
 		this.primaryScreen.getFirstScreen();

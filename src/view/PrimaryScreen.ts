@@ -1,26 +1,24 @@
 import promptSync from 'prompt-sync';
 import DesktopController from '../control/DesktopController';
-import Desktop from '../model/Desktop';
-import { useTypesEnum } from '../enums/UseTypes';
+import ComputersView from './ComputersView';
 
 export default class PrimaryScreen{
 
-	private DesktopController: DesktopController;
 	private prompt = promptSync({sigint: true});
+	private computersView: ComputersView = new ComputersView(new DesktopController());
 
-	constructor(DesktopController: DesktopController){
-		this.DesktopController = DesktopController;
+	constructor(){
 	}
 
 	public getFirstScreen():void {
 
 		let showScreen: boolean = true;
 		while (showScreen) {
-			const choice = this.prompt('Escolha:\n1 - Computadores\n2 - Vendedores\n3 - Sair\n Opção escolhida: ');
+			const choice = this.prompt('Escolha:\n 1 - Computadores\n 2 - Vendedores\n 3 - Vendas\n 4 - Sair\n Opção escolhida: ');
 
 			switch (choice) {
 			case '1':
-				this.registerDesktop(this.DesktopController.getNewDesktop());
+				this.computersView.getView();
 				break;
 
 			case '2':
@@ -28,6 +26,10 @@ export default class PrimaryScreen{
 				break;
 
 			case '3':
+				console.log('digitou 3');
+				break;
+
+			case '4':
 				showScreen = false;
 				break;
 
@@ -35,17 +37,5 @@ export default class PrimaryScreen{
 				console.log('Resposta inválida!');
 			}
 		}
-	}
-
-	public registerDesktop(Desktop: Desktop): void{
-		const name = this.prompt('Digite o nome do modelo: ');
-		const price = parseInt(this.prompt('Digite o preço: '));
-
-		Desktop.setModelName(name);
-		Desktop.setPrice(price);
-		Desktop.setUseType(useTypesEnum.Basic);
-
-		this.DesktopController.registerDesktop(Desktop);
-		console.log(this.DesktopController.getDesktops());
 	}
 }
