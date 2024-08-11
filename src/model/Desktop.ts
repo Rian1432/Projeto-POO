@@ -5,9 +5,15 @@ export default class Desktop extends Computer{
 	private withMonitor:boolean;
 	private withPeripherals:boolean;
 
-	constructor(modelName:string = '', price:number = 0, useType:useTypesEnum = useTypesEnum.Basic) {
+	constructor(modelName:string = '', price:number = 0, useType?:useTypesEnum, withMonitor?:boolean) {
 		super(modelName, price, useType);
-		this.withMonitor = false;
+
+		if(withMonitor) {
+			this.withMonitor = withMonitor;
+		} else {
+			this.withMonitor = false;
+		}
+
 		this.withPeripherals = false;
 	}
 

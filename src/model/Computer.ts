@@ -7,11 +7,16 @@ export default abstract class Computer {
 	private price:number;
 	private useType:useTypesEnum;
 
-	protected constructor(modelName:string, price:number, useType:useTypesEnum) {
+	protected constructor(modelName:string, price:number, useType?:useTypesEnum) {
 		this.id = uuidv4();
 		this.modelName = modelName;
 		this.price = price;
-		this.useType = useType;
+
+		if (useType) {
+			this.useType = useType;
+		} else {
+			this.useType = useTypesEnum.Basic;
+		}
 	}
 
 	public getId():string {
