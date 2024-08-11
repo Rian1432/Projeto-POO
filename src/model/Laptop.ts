@@ -16,4 +16,14 @@ export default class Laptop extends Computer {
 	setScreenSize(size:number):void {
 		this.screenSize = size;
 	}
+
+	getComputerInfo(): string {
+		return `
+		ID: ${this.getId()}
+		Nome: ${this.getModelName()}
+		Preço: ${this.getPrice()}
+		Tipo de uso: ${this.getUseType()}
+		Tipo de computador: Notebook
+		`;
+	}
 }

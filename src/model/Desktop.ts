@@ -32,4 +32,14 @@ export default class Desktop extends Computer{
 	public setIfHavePeripherals(hasPeripherals:boolean):void {
 		this.withPeripherals = hasPeripherals;
 	}
+
+	getComputerInfo(): string {
+		return `
+		ID: ${this.getId()}
+		Nome: ${this.getModelName()}
+		Preço: ${this.getPrice()}
+		Tipo de uso: ${this.getUseType()}
+		Tipo de computador: Computador de mesa
+		`;
+	}
 }

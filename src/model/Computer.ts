@@ -46,4 +46,6 @@ export default abstract class Computer {
 	public setUseType(useType: useTypesEnum):void {
 		this.useType = useType;
 	}
+
+	public abstract getComputerInfo () :string;
 }
