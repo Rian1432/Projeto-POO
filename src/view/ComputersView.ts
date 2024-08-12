@@ -1,22 +1,30 @@
-import promptSync from 'prompt-sync';
 import DesktopController from '../control/DesktopController';
 import Desktop from '../model/Desktop';
+import {input, select} from '@inquirer/prompts';
 import {useTypesEnum} from '../enums/UseTypes';
 
 export default class ComputersView  {
-	private prompt = promptSync({sigint: true});
 
 	constructor(private DesktopController: DesktopController) {
 	}
 
-	public getView () {
+	public async getView ():Promise<void> {
+
 		let showScreen: boolean = true;
 		while (showScreen) {
-			const choice = this.prompt('Escolha:\n 1 - criar computador\n 2 - listar computadores\n 3 - Sair\n Opção escolhida: ');
 
-			switch (choice) {
+			const answer = await select({
+				message: 'Selecione uma opção:',
+				choices: [
+					{	name: 'criar computador', value: '1'},
+					{	name: 'Ver lista de computadores', value: '2'},
+					{ name: 'Voltar', value: '3'},
+				],
+			});
+
+			switch (answer) {
 			case '1':
-				this.registerDesktop(this.DesktopController.getNewDesktop());
+				await this.registerDesktop(this.DesktopController.getNewDesktop());
 				break;
 
 			case '2':
@@ -33,16 +41,24 @@ export default class ComputersView  {
 		}
 	}
 
-	public registerDesktop(Desktop: Desktop): void{
-		const name = this.prompt('Digite o nome do modelo: ');
-		const price = parseInt(this.prompt('Digite o preço: '));
+	public async registerDesktop(Desktop: Desktop): Promise<void>{
+		const name = await input({message:'Digite o nome do modelo: '});
+		const price = await input({message:'Digite o preço: '});
+		const useType = await select({
+			message: 'Qual o tipo de uso deste computador?',
+			choices: [
+				{	name: 'Uso básico', value: useTypesEnum.Basic},
+				{ name: 'Uso performático',	value: useTypesEnum.Performance,},
+				{ name: 'Uso gamer', value: useTypesEnum.Gamer},
+			],
+		});
 
 		Desktop.setModelName(name);
-		Desktop.setPrice(price);
-		Desktop.setUseType(useTypesEnum.Basic);
+		Desktop.setPrice(parseFloat(price));
+		Desktop.setUseType(useType);
 
 		this.DesktopController.registerDesktop(Desktop);
-		this.showDesktops();
+		console.log(Desktop.getComputerInfo());
 	}
 
 	public showDesktops():void {
