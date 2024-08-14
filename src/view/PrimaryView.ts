@@ -1,12 +1,12 @@
-import ComputersView from './ComputersView';
 import {select} from '@inquirer/prompts';
-import DesktopController from '../control/DesktopController';
+import BasicController from '../control/BasicController';
 
 export default class PrimaryView {
 
-	private computersView: ComputersView = new ComputersView(new DesktopController());
+	private basicController: BasicController;
 
-	constructor(){
+	constructor(basicController:BasicController) {
+		this.basicController = basicController;
 	}
 
 	public async getFirstScreen():Promise<void> {
@@ -31,7 +31,7 @@ export default class PrimaryView {
 
 			switch (answer) {
 			case '1':
-				await this.computersView.getView();
+				await this.basicController.getComputerView();
 				break;
 
 			case '2':

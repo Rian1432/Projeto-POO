@@ -5,7 +5,7 @@ import {useTypesEnum} from '../enums/UseTypes';
 
 export default class ComputersView  {
 
-	constructor(private DesktopController: DesktopController) {
+	constructor(private desktopController: DesktopController) {
 	}
 
 	public async getView ():Promise<void> {
@@ -24,7 +24,7 @@ export default class ComputersView  {
 
 			switch (answer) {
 			case '1':
-				await this.registerDesktop(this.DesktopController.getNewDesktop());
+				await this.registerDesktop(this.desktopController.getNewDesktop());
 				break;
 
 			case '2':
@@ -57,11 +57,11 @@ export default class ComputersView  {
 		Desktop.setPrice(parseFloat(price));
 		Desktop.setUseType(useType);
 
-		this.DesktopController.registerDesktop(Desktop);
+		this.desktopController.registerDesktop(Desktop);
 		console.log(Desktop.getComputerInfo());
 	}
 
 	public showDesktops():void {
-		console.log(this.DesktopController.getDesktops());
+		console.log(this.desktopController.getDesktops());
 	}
 }
