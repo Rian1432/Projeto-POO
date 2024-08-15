@@ -34,7 +34,7 @@ Na primeira tela da aplicação o usuário poderá escolher entre: computadores,
 - Ao selecionar vendedores, o usuário poderá escolher entre cadastrar um vendedor, listar os vendedores existentes e excluir um vendedor.
 
 #### vendas
-- Ao selecionar Vendas, o usuário poderá escolher entre cadastrar uma nova venda, listar as vendas e editar uma venda.
+- Ao selecionar Vendas, o usuário poderá escolher entre cadastrar uma nova venda, e listar as vendas.
 
 <!-- ### Classes do projeto:
 Computador
