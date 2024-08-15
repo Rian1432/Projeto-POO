@@ -16,4 +16,8 @@ export default class DesktopController{
 	public getDesktops(): Desktop[]{
 		return this.db.getDesktops();
 	}
+	
+	public removeDesktop(desktop:Desktop):void {
+		this.db.removeDesktop(desktop);
+	}
 }

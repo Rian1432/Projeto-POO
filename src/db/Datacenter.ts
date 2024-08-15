@@ -19,6 +19,7 @@ export default class DataCenter {
 
 	public removeDesktop(desktop:Desktop):void {
 		const desktopIndex = this.desktopList.indexOf(desktop);
+
 		if(desktopIndex !== -1) {
 			this.desktopList.splice(desktopIndex, 1);
 		}

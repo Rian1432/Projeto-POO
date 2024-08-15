@@ -1,6 +1,6 @@
 import DesktopController from '../control/DesktopController';
 import Desktop from '../model/Desktop';
-import {input, select} from '@inquirer/prompts';
+import {input, select, confirm} from '@inquirer/prompts';
 import {useTypesEnum} from '../enums/UseTypes';
 
 export default class ComputersView  {
@@ -13,16 +13,17 @@ export default class ComputersView  {
 		let showScreen: boolean = true;
 		while (showScreen) {
 
-			const answer = await select({
+			const selectAction = await select({
 				message: 'Selecione uma opção:',
 				choices: [
 					{	name: 'criar computador', value: '1'},
 					{	name: 'Ver lista de computadores', value: '2'},
-					{ name: 'Voltar', value: '3'},
+					{	name: 'Deletar computador', value: '3'},
+					{ name: 'Voltar', value: '4'},
 				],
 			});
 
-			switch (answer) {
+			switch (selectAction) {
 			case '1':
 				await this.registerDesktop(this.desktopController.getNewDesktop());
 				break;
@@ -32,6 +33,10 @@ export default class ComputersView  {
 				break;
 
 			case '3':
+				await this.removeDesktop();
+				break;
+
+			case '4':
 				showScreen = false;
 				break;
 
@@ -63,5 +68,36 @@ export default class ComputersView  {
 
 	public showDesktops():void {
 		console.log(this.desktopController.getDesktops());
+	}
+
+	public async removeDesktop():Promise<void> {
+		const choices:any[] = [];
+		const desktopList:Desktop[] = this.desktopController.getDesktops();
+
+		desktopList.forEach((desktop:Desktop) => {
+			choices.push({
+				name: `${desktop.getModelName()} - R$${desktop.getPrice()}`,
+				value: desktop
+			});
+		});
+
+		let selectAnswer:Desktop;
+
+		if (choices.length > 0) {
+			selectAnswer = await select({
+				message: 'Selecione uma opção:',
+				choices: [...choices],
+			});
+		} else {
+			console.log('Não há nenhum computador cadastrado no momento');
+			return;
+		}
+
+		const confirmAnswer = await confirm({message: 'Deseja mesmo excluir este computador?'});
+
+		if (confirmAnswer) {
+			// @ts-ignore
+			this.desktopController.removeDesktop(selectAnswer);
+		}
 	}
 }
