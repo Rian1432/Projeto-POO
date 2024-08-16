@@ -1,5 +1,5 @@
-import PrimaryView from '../view/PrimaryView';
-import ComputersView from '../view/ComputersView';
+import PrimaryView from '../views/PrimaryView';
+import ComputersView from '../views/ComputersView';
 import DesktopController from './DesktopController';
 
 export default class BasicController{

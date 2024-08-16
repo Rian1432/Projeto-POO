@@ -1,4 +1,4 @@
-import DesktopController from '../control/DesktopController';
+import DesktopController from '../controllers/DesktopController';
 import Desktop from '../model/Desktop';
 import {input, select, confirm} from '@inquirer/prompts';
 import {useTypesEnum} from '../enums/UseTypes';
