@@ -1,23 +1,24 @@
-import Datacenter from '../db/Datacenter';
 import Desktop from '../model/Desktop';
+import {DesktopService} from '../services/desktopService/DesktopService';
+import {DesktopInterface} from '../services/desktopService/DesktopInterface';
 
 export default class DesktopController{
 
-	private db: Datacenter = new Datacenter(); 
+	private desktopService:DesktopService = new DesktopService();
 
 	public getNewDesktop(): Desktop{
 		return new Desktop();
 	}
 
-	public registerDesktop(computer: Desktop){
-		this.db.addDesktop(computer);
+	public async registerDesktop(computer: Desktop){
+		return this.desktopService.create(computer);
 	}
 
-	public getDesktops(): Desktop[]{
-		return this.db.getDesktops();
+	public async getDesktops(): Promise<DesktopInterface[]> {
+		return this.desktopService.index();
 	}
 	
-	public removeDesktop(desktop:Desktop):void {
-		this.db.removeDesktop(desktop);
+	public async removeDesktop(desktop:DesktopInterface):Promise<DesktopInterface> {
+		return this.desktopService.delete(desktop.id);
 	}
 }

@@ -2,6 +2,8 @@ import DesktopController from '../controllers/DesktopController';
 import Desktop from '../model/Desktop';
 import {input, select, confirm} from '@inquirer/prompts';
 import {useTypesEnum} from '../enums/UseTypes';
+import {DesktopInterface} from '../services/desktopService/DesktopInterface';
+import {SelectOptionsInterface} from '../Interfaces/SelectOptionsInterface';
 
 export default class ComputersView  {
 
@@ -25,11 +27,11 @@ export default class ComputersView  {
 
 			switch (selectAction) {
 			case '1':
-				await this.registerDesktop(this.desktopController.getNewDesktop());
+				await this.registerDesktop();
 				break;
 
 			case '2':
-				this.showDesktops();
+				await this.showDesktops();
 				break;
 
 			case '3':
@@ -46,9 +48,13 @@ export default class ComputersView  {
 		}
 	}
 
-	public async registerDesktop(Desktop: Desktop): Promise<void>{
+	public async registerDesktop(): Promise<void>{
+		const newDesktop:Desktop = this.desktopController.getNewDesktop();
+
 		const name = await input({message:'Digite o nome do modelo: '});
 		const price = await input({message:'Digite o preço: '});
+		const hasMonitor = await confirm({message: 'Ele possui periféricos?'});
+		const hasPeripherals = await confirm({message: 'Ele possui monitor?'});
 		const useType = await select({
 			message: 'Qual o tipo de uso deste computador?',
 			choices: [
@@ -58,46 +64,60 @@ export default class ComputersView  {
 			],
 		});
 
-		Desktop.setModelName(name);
-		Desktop.setPrice(parseFloat(price));
-		Desktop.setUseType(useType);
+		newDesktop.setModelName(name);
+		newDesktop.setPrice(parseFloat(price));
+		newDesktop.setUseType(useType);
+		newDesktop.setIfHaveMonitor(hasMonitor);
+		newDesktop.setIfHavePeripherals(hasPeripherals);
 
-		this.desktopController.registerDesktop(Desktop);
-		console.log(Desktop.getComputerInfo());
+		this.desktopController.registerDesktop(newDesktop)
+			.then(() => {
+				console.log('O computador foi adicionado com sucesso!');
+			})
+			.catch((error) => {
+				console.error(error);
+			});
 	}
 
-	public showDesktops():void {
-		console.log(this.desktopController.getDesktops());
+	public async showDesktops():Promise<void> {
+		try {
+			const desktopList = await this.desktopController.getDesktops();
+			console.log(desktopList);
+		}
+		catch (error) {
+			console.log(error);
+			return;
+		}
 	}
 
 	public async removeDesktop():Promise<void> {
-		const choices:any[] = [];
-		const desktopList:Desktop[] = this.desktopController.getDesktops();
+		const choices:SelectOptionsInterface<DesktopInterface>[] = [];
+		let desktopList:DesktopInterface[];
 
-		desktopList.forEach((desktop:Desktop) => {
+		try {
+			desktopList = await this.desktopController.getDesktops();
+		}
+		catch (error) {
+			console.log(error);
+			return;
+		}
+
+		desktopList.forEach((desktop) => {
 			choices.push({
-				name: `${desktop.getModelName()} - R$${desktop.getPrice()}`,
+				name: `${desktop.modelName} - R$${desktop.price}`,
 				value: desktop
 			});
 		});
 
-		let selectAnswer:Desktop;
-
-		if (choices.length > 0) {
-			selectAnswer = await select({
-				message: 'Selecione uma opção:',
-				choices: [...choices],
-			});
-		} else {
-			console.log('Não há nenhum computador cadastrado no momento');
-			return;
-		}
-
+		const selectAnswer = await select({
+			message: 'Selecione uma opção:',
+			choices: choices,
+		});
+		
 		const confirmAnswer = await confirm({message: 'Deseja mesmo excluir este computador?'});
 
 		if (confirmAnswer) {
-			// @ts-ignore
-			this.desktopController.removeDesktop(selectAnswer);
+			await this.desktopController.removeDesktop(selectAnswer);
 		}
 	}
 }
