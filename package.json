@@ -4,7 +4,8 @@
     "build-watch": "npx tsc --watch",
     "build": "npx tsc",
     "lint": "eslint .",
-    "lint:fix": "eslint ./src --fix"
+    "lint:fix": "eslint ./src --fix",
+    "mock-server": "npx json-server src/mock-server/db.json"
   },
   "devDependencies": {
     "@types/prompt-sync": "^4.2.3",
@@ -16,6 +17,8 @@
   },
   "dependencies": {
     "@inquirer/prompts": "^5.3.8",
+    "axios": "^1.7.4",
+    "json-server": "^1.0.0-beta.1",
     "uuid": "^10.0.0"
   }
 }
