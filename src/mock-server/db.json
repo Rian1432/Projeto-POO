@@ -6,6 +6,14 @@
       "price": 4000,
       "useType": "performance",
       "withMonitor": true
+    },
+    {
+      "id": "05cadc52-171d-42c4-a14b-68ce4aafe09b",
+      "modelName": "modelo de teste2",
+      "price": 3000,
+      "useType": "gamer",
+      "withMonitor": false,
+      "withPeripherals": false
     }
   ]
 }

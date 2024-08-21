@@ -14,8 +14,8 @@ export default class DesktopController{
 		return this.desktopService.create(computer);
 	}
 
-	public async getDesktops(): Promise<DesktopInterface[]> {
-		return this.desktopService.index();
+	public async getDesktops(params?:{[key:string]: any}): Promise<DesktopInterface[]> {
+		return this.desktopService.index(params);
 	}
 	
 	public async removeDesktop(desktop:DesktopInterface):Promise<DesktopInterface> {

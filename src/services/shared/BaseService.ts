@@ -11,8 +11,8 @@ export default class BaseService<T> {
 		this.fetch = new AxiosClient(axiosInstance);
 	}
 
-	public async index(): Promise<T[]> {
-		const response:any = await this.fetch.get(this.url);
+	public async index(params?:{[key:string]: any}): Promise<T[]> {
+		const response:any = await this.fetch.get(this.url, params);
 		return response.data;
 	}
 

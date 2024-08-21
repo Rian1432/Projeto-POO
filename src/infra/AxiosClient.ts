@@ -8,8 +8,8 @@ export class AxiosClient implements HttpClientInterface {
 		this.instance = instance;
 	}
 
-	public async get<T>(url: string): Promise<T> {
-		return this.instance.get(url);
+	public async get<T>(url: string, params?: {[key:string]: any}): Promise<T> {
+		return this.instance.get(url, {params: params});
 	}
 
 	public async post<T>(url: string, data:T): Promise<T> {
